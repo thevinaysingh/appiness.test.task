@@ -23,7 +23,6 @@
         "class-methods-use-this": 0,
         "prefer-arrow-callback": 1,
         "global-require": 0,
-        "indent": ["error", 2],
         "semi": ["error"],
         "linebreak-style": ["off"],
         "max-len": ["warn", { "code": 120, "comments": 80, "ignoreUrls": true, "ignoreRegExpLiterals": true }],
