@@ -61,26 +61,26 @@ const CustomTextInput = ({
   textInput,
   paddingRight,
 }) => (
-  <View style={ inputView }>
-    { title !== '' && <Text style={ [styles.inputTitle, titleStyle] }>{ title }</Text> }
+  <View style={inputView}>
+    { title !== '' && <Text style={[styles.inputTitle, titleStyle]}>{ title }</Text> }
     <TextInput
-      style={ textInput }
-      ref={ (ref) => { getTextInputReference(inputKey, ref); } }
-      value={ value }
-      placeholder={ placeholder }
-      placeholderTextColor={ placeholderTextColor }
-      selectionColor={ selectionColor }
-      keyboardType={ keyboardType }
+      style={textInput}
+      ref={(ref) => { getTextInputReference(inputKey, ref); }}
+      value={value}
+      placeholder={placeholder}
+      placeholderTextColor={placeholderTextColor}
+      selectionColor={selectionColor}
+      keyboardType={keyboardType}
       underlineColorAndroid="transparent"
-      secureTextEntry={ secureTextEntry }
-      editable={ editable }
-      returnKeyType={ returnKeyType }
-      autoCapitalize={ autoCapitalize }
-      autoCorrect={ autoCorrect }
-      paddingRight={ paddingRight }
-      onSubmitEditing={ () => onSubmitEditing(inputKey) }
-      onFocus={ () => onFocus() }
-      onChangeText={ onChangeText }
+      secureTextEntry={secureTextEntry}
+      editable={editable}
+      returnKeyType={returnKeyType}
+      autoCapitalize={autoCapitalize}
+      autoCorrect={autoCorrect}
+      paddingRight={paddingRight}
+      onSubmitEditing={() => onSubmitEditing(inputKey)}
+      onFocus={() => onFocus()}
+      onChangeText={onChangeText}
     />
   </View>
 );
@@ -91,7 +91,7 @@ CustomTextInput.propTypes = {
   editable: PropTypes.bool,
   getTextInputReference: PropTypes.func,
   inputKey: PropTypes.string,
-  inputView: PropTypes.objectOf(PropTypes.any),
+  inputView: PropTypes.oneOfType([PropTypes.any]),
   keyboardType: PropTypes.string,
   paddingRight: PropTypes.number,
   placeholder: PropTypes.string,
@@ -99,9 +99,9 @@ CustomTextInput.propTypes = {
   returnKeyType: PropTypes.string,
   secureTextEntry: PropTypes.bool,
   selectionColor: PropTypes.string,
-  textInput: PropTypes.objectOf(PropTypes.any),
+  textInput: PropTypes.oneOfType([PropTypes.any]),
   title: PropTypes.string,
-  titleStyle: PropTypes.objectOf(PropTypes.any),
+  titleStyle: PropTypes.oneOfType([PropTypes.any]),
   value: PropTypes.string,
   onChangeText: PropTypes.func,
   onFocus: PropTypes.func,
@@ -118,10 +118,10 @@ CustomTextInput.defaultProps = {
   keyboardType: 'default',
   paddingRight: 1,
   placeholder: '',
-  placeholderTextColor: 'white',
+  placeholderTextColor: 'darkgrey',
   returnKeyType: 'done',
   secureTextEntry: false,
-  selectionColor: 'white',
+  selectionColor: 'darkgrey',
   textInput: {},
   title: '',
   titleStyle: {},
@@ -130,4 +130,5 @@ CustomTextInput.defaultProps = {
   onFocus: () => {},
   onSubmitEditing: () => {},
 };
+
 export default CustomTextInput;
