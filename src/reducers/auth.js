@@ -1,8 +1,7 @@
-/* eslint no-underscore-dangle: 0 */
+import { authTypes } from '../actions/auth/types';
 
 const initialState = {
-  isLoading: false,
-  loginResponse: {},
+  loginResponse: null,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -11,6 +10,25 @@ export const authReducer = (state = initialState, action) => {
   }
 
   switch (action.type) {
+    case authTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loginResponse: {
+          isLoggedin: true,
+          message: action.message,
+          accessToken: action.accessToken,
+        },
+      };
+
+    case authTypes.LOGIN_FAILURE:
+      return {
+        ...state,
+        loginResponse: {
+          isLoggedin: false,
+          message: action.message,
+        },
+      };
+
     default:
       return state;
   }
