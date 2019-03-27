@@ -1,0 +1,4 @@
+export const userTypes = Object.freeze({
+  GET_EMPLOYEES_SUCCESS: 'GET_EMPLOYEES_SUCCESS',
+  GET_EMPLOYEES_FAILURE: 'GET_EMPLOYEES_FAILURE',
+});
