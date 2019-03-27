@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, FlatList, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../../actions';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { DefaultLabel } from '../../components/AppStyledComponents';
 import { locales } from '../../utils/locales';
 import * as Storage from '../../utils/storage';
 import { CONSTANTS } from '../../utils/constants';
 import { screens } from '../../navigator/screens-name';
+import CommonStatusBar from '../../components/StatusBar';
+import NavigationBar from '../../components/NavigationBar';
+import { Colors } from '../../theme';
 
 /**
   * @desc this class will list the employees
@@ -22,7 +27,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.navigation);
+    this.props.getEmployees();
   }
 
   onPressLogout = () => {
@@ -42,28 +47,75 @@ class Dashboard extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
+  renderItem(item) {
+    return (
+      <View style={styles.itemContainer}>
+        <Text>{`${locales.DASHBOARD.name} : ${item.name}`}</Text>
+        <Text>{`${locales.DASHBOARD.gender} : ${item.gender}`}</Text>
+        <Text>{`${locales.DASHBOARD.age} : ${item.age}`}</Text>
+        <Text>{`${locales.DASHBOARD.email} : ${item.email}`}</Text>
+        <Text>{`${locales.DASHBOARD.phone} : ${item.phoneNo}`}</Text>
+      </View>
+    );
+  }
+
   render() {
+    const { users } = this.props;
     return (
       <DashboardContainer>
-        <TouchableOpacity
-          onPress={this.onPressLogout}
-        >
-          <DefaultLabel>{locales.DASHBOARD.logout}</DefaultLabel>
-        </TouchableOpacity>
+        <CommonStatusBar />
+        <NavigationBar
+          title={locales.DASHBOARD.title}
+          showRightButton
+          rightLabel={locales.DASHBOARD.logout}
+          rightButtonAction={this.onPressLogout}
+        />
+        <FlatList
+          style={{ flex: 1 }}
+          data={users}
+          renderItem={({ item }) => this.renderItem(item)}
+          keyExtractor={item => `${item.id}`}
+          scrollEnabled
+        />
       </DashboardContainer>
     );
   }
 }
 
 const DashboardContainer = styled.View`
-    align-items: center;
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  padding-top: 20px;
+  flex: 1;
+  display: flex;
+  background-color: white;
 `;
 
-Dashboard.propTypes = {
-  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+const styles = {
+  itemContainer: {
+    marginHorizontal: 10,
+    marginVertical: 5,
+    backgroundColor: 'powderblue',
+    borderRadius: 10,
+    padding: 10,
+  },
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+  getEmployees: PropTypes.func,
+  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+  users: PropTypes.arrayOf(PropTypes.any),
+};
+
+Dashboard.defaultProps = {
+  getEmployees: () => {},
+  users: [],
+};
+
+const mapStateToProps = state => ({
+  users: state.user.users,
+});
+
+const mapDispatchToProps = () => ActionCreators;
+
+const DashboardScreen = connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+export default DashboardScreen;
