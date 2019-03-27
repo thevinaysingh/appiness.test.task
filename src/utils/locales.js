@@ -13,6 +13,11 @@ export const locales = {
     title: 'Dashboard',
     logout: 'Logout',
     employees_list: 'List of Employees',
+    name: 'Name',
+    age: 'Age',
+    gender: 'Gender',
+    email: 'Email',
+    phone: 'Phone Number',
   },
 };
 
@@ -27,7 +32,10 @@ export const LOCAL_DB = {
     login_success: 'Login success!',
     access_token: new Date().getTime.toString(),
   },
-  user: [
+  USER_MSG: {
+    user_list_success: 'Fetch user list success!',
+  },
+  users: [
     {
       "id":1,
       "name":"test1",
